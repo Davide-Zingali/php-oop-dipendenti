@@ -15,22 +15,45 @@
                 // creare 3 classi per rappresentare la seguente realta':
                 // classe - persona
                 class Persona {
-                    public $nome;
-                    public $cognome;
-                    public $dataNascita;
+                    private $nome;
+                    private $cognome;
+                    private $dataNascita;
 
-                    function __construct($nome, $cognome, $dataNascita) {
+                    public function __construct($nome, $cognome, $dataNascita) {
+                        $this -> setNome($nome);
+                        $this -> setNognome($cognome);
+                        $this -> setDataNascita($dataNascita);
+                    }
+                    
+                    // get e sen di nome
+                    public function getNome() {
+                        return $this -> nome;
+                    }
+                    public function setNome($nome) {
                         $this -> nome = $nome;
+                    }
+                    
+                    // get e set di cognome
+                    public function getCognome() {
+                        return $this -> cognome;
+                    }
+                    public function setNognome($cognome) {
                         $this -> cognome = $cognome;
+                    }
+
+                    // get e set data di nascita
+                    public function getDataNascita() {
+                        return $this -> dataNascita;
+                    }
+                    public function setDataNascita($dataNascita) {
                         $this -> dataNascita = $dataNascita;
                     }
 
                     public function __toString() {
                         return
-                          'Persona' . '<br>'
-                        . 'Nome: ' . $this -> nome . ' ' . '<br>'
-                        . 'Cognome: ' . $this -> cognome . ' ' . '<br>'
-                        . 'Nato il: ' . $this -> dataNascita . ' ' . '<br>';
+                          'Nome: ' . $this -> getNome() . ' ' . '<br>'
+                        . 'Cognome: ' . $this -> getCognome() . ' ' . '<br>'
+                        . 'Nato il: ' . $this -> getDataNascita() . ' ' . '<br>';
                     }
                 }
 
@@ -40,10 +63,10 @@
                 // classe - dipendente
                 class Dipendente extends Persona {
                     
-                    public $ruolo;
-                    public $stipendio;
+                    private $ruolo;
+                    private $stipendio;
                     
-                    function __construct($nome, $cognome, $dataNascita, $ruolo, $stipendio) {
+                    public function __construct($nome, $cognome, $dataNascita, $ruolo, $stipendio) {
                         //invece di riscrivere tutti gli attributi come sotto
                         // $this -> nome = $nome;
                         // $this -> cognome = $cognome;
@@ -52,18 +75,28 @@
                         //useremo il parent per portare dietro tutti gli attributi della classe persona
                         parent:: __construct($nome, $cognome, $dataNascita);
                         
+                        $this -> setRuolo($ruolo);
+                        $this -> setStipendio($stipendio);
+                    }
+
+                    public function getRuolo() {
+                        return $this -> ruolo;
+                    }
+                    public function setRuolo($ruolo) {
                         $this -> ruolo = $ruolo;
+                    }
+                    public function getStipendio() {
+                        return $this -> stipendio;
+                    }
+                    public function setStipendio($stipendio) {
                         $this -> stipendio = $stipendio;
                     }
 
                     public function __toString() {
                         return
-                          'Dipendente' . '<br>'
-                        . 'Nome: ' . $this -> nome . ' ' . '<br>'
-                        . 'Cognome: ' . $this -> cognome . ' ' . '<br>'
-                        . 'Nato il: ' . $this -> dataNascita . ' ' . '<br>'
-                        . 'Ruolo in azienza: ' . $this -> ruolo . ' ' . '<br>'
-                        . 'Retribuzione mensile: ' . $this -> stipendio . ' €';
+                           parent:: __toString() . '<br>'
+                        . 'Ruolo in azienza: ' . $this -> getRuolo() . ' ' . '<br>'
+                        . 'Retribuzione mensile: ' . $this -> getStipendio() . ' €';
                     }
 
                 }
@@ -74,18 +107,12 @@
                 // classe - boss
                 class Capo extends Dipendente {
 
-                    function __construct($nome, $cognome, $dataNascita, $ruolo, $stipendio) {
+                    public function __construct($nome, $cognome, $dataNascita, $ruolo, $stipendio) {
                         parent:: __construct($nome, $cognome, $dataNascita, $ruolo, $stipendio);
                     } 
                     
                     public function __toString() {
-                        return
-                          'Capo' . '<br>'
-                        . 'Nome: ' . $this -> nome . ' ' . '<br>'
-                        . 'Cognome: ' . $this -> cognome . ' ' . '<br>'
-                        . 'Nato il: ' . $this -> dataNascita . ' ' . '<br>'
-                        . 'Ruolo in azienza: ' . $this -> ruolo . ' ' . '<br>'
-                        . 'Retribuzione mensile: ' . $this -> stipendio . ' €';
+                        return parent:: __toString() . '<br>';
                     }
                 }
 
@@ -100,7 +127,7 @@
                     <div class="box">
                         <?php
                         
-                            echo $persona;
+                            echo 'Persona <br>' . $persona;
                             
                         ?>
                     </div>
@@ -108,7 +135,7 @@
                     <div class="box">
                         <?php
                         
-                            echo $capo;
+                            echo 'Capo <br>' . $capo;
                             
                         ?>
                     </div>
@@ -117,7 +144,7 @@
                     
                         <?php
                         
-                            echo $dipendente;
+                            echo 'Dipendente <br>' . $dipendente;
                             
                         ?>
                     
